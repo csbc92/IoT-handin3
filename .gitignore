@@ -1,4 +1,7 @@
 
+# Custom
+venv/
+
 # Created by https://www.gitignore.io/api/rider,csharp,pycharm,dotnetcore,aspnetcore
 # Edit at https://www.gitignore.io/?templates=rider,csharp,pycharm,dotnetcore,aspnetcore
 
