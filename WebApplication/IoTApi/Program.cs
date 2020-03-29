@@ -15,23 +15,7 @@ namespace IoTApi
     {
         public static void Main(string[] args)
         {
-            InitializeEFContext();
-            
             CreateHostBuilder(args).Build().Run();
-        }
-        
-        private static void InitializeEFContext()
-        {
-            using (var context = new IoTContext())
-            {
-                // EnsureCreated() and Migrate are mutually exclusive.
-                // Use EnsureCreated for rapid prototyping and not for production.
-                
-                //context.Database.Migrate();
-                context.Database.EnsureCreated(); 
-
-                // Other db initialization code.
-            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

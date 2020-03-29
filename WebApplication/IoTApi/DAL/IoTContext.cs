@@ -9,10 +9,16 @@ namespace IoTApi.DAL
         public DbSet<Message> Messages { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
 
+        /**
+         * Necessary constructor when using the AddDbContext in Startup.cs
+         */
+        public IoTContext(DbContextOptions<IoTContext> options) : base(options)
+        {
+        }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.EnableSensitiveDataLogging(true);
-            optionsBuilder.UseMySql("Server=localhost; Port=3306; Database=iotdb; Uid=root; Pwd=toor;");
+            //optionsBuilder.EnableSensitiveDataLogging(true);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

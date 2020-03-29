@@ -14,13 +14,46 @@ namespace IoTApi.Controllers
     [Route("[controller]")]
     public class IoTController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<IoTDevice> Get()
+        private readonly IoTContext _context;
+
+        /*
+         * Dependency injection of IotContext.
+         * Injected automatically when services.AddDbContext<IoTContext> is called in Startup.cs
+         */
+        public IoTController(IoTContext context)
         {
-            using (var ctx = new IoTContext())
+            _context = context;
+
+            InitializeEFContext();
+        }
+        
+        private void InitializeEFContext()
+        {
+            using (var context = _context)
+            {
+                // EnsureCreated() and Migrate are mutually exclusive.
+                // Use EnsureCreated for rapid prototyping and not for production.
+                
+                //context.Database.Migrate();
+                context.Database.EnsureCreated(); 
+
+                // Other db initialization code.
+            }
+        }
+        
+        [HttpGet("all")]
+        public IEnumerable<IoTDevice> GetAll()
+        {
+            using (var ctx = _context)
             {
                 return ctx.IoTDevices.Include("Messages.Measurements").ToList();
             }
+        }
+        
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok();
         }
         
         [HttpPost("upload")]
@@ -29,7 +62,7 @@ namespace IoTApi.Controllers
             Console.WriteLine("Got POST message");
             PrintDTOMessage(message);
             
-            using (var ctx = new IoTContext())
+            using (var ctx = _context)
             {
                 var entity = ctx.IoTDevices.Find(message.Iotdeviceid);
                 IoTDevice ioTDevice = DTOMessageMapper.DTOMessageToIoTDevice(message);
