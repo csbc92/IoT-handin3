@@ -4,7 +4,8 @@ import time
 import math
 import random
 
-api_endpoint = 'https://localhost:5001/iot/upload'
+api_endpoint = 'http://iot.christianclausen.dk/iot/upload' # Production
+#api_endpoint = 'https://localhost:5001/iot/upload' # Development server
 
 transmission_counter = 0 # The first message is message 0
 
@@ -29,7 +30,8 @@ while True:
     time.sleep(1) # Time to sleep in seconds
 
     r = requests.post(api_endpoint, data=body, verify=False, # Ignore self-signed certificate warnings
-                      headers={"Content-Type": "application/json"})
+                      headers={"Content-Type": "application/json",
+                               "User-Agent": "My User Agent 1.0"}) # User agent must be set, or you get a response: 406.0 - ModSecurity Action from ASP CORE
 
     print(r.status_code)
     print(r.text)
