@@ -45,6 +45,12 @@ while True:
     lux = lightsensor.light()  # light() provides a tuple of lux values. The light sensor is a dual light sensor, hence two values.
     luxC1 = lux[0]
 
+    # Breaks the while loop if the ambient sensor is directly affected by light e.g. a flash light
+    # Mechanism used to get control over the serial connection if new code should be uploaded.
+    # This is to avoid safe booting by using a jumping cable between 3v3 and P12
+    if (luxC1 > 12000):
+        break
+
     temperature = blue_pin() # Read temperature sensor value
 
     body = json.dumps({
@@ -76,3 +82,5 @@ while True:
     except:
         # Ignore and continue
         print("Error when sending POST")
+
+print("Exited main loop...")
