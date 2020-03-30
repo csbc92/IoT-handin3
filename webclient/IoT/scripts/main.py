@@ -70,7 +70,6 @@ while True:
     })
 
     transmission_counter = transmission_counter + 1 # Increase the counter
-    time.sleep(1) # Time to sleep in seconds
 
     try:
         r = requests.post(api_endpoint, data=body,
@@ -82,5 +81,7 @@ while True:
     except:
         # Ignore and continue
         print("Error when sending POST")
+
+    time.sleep(1)  # Time to sleep in seconds
 
 print("Exited main loop...")
