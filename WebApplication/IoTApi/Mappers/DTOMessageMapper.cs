@@ -17,7 +17,11 @@ namespace IoTApi.Mappers
 
             Message message = new Message()
             {
-                TimeStamp = dtoMessage.TimeStamp,
+                TimeStampSent = dtoMessage.TimeStamp,
+                TimeStampReceived = (long)DateTime.Now.ToUniversalTime().Subtract(
+                    new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                ).TotalMilliseconds,
+                
                 TransmissionsCounter = dtoMessage.TransmissionsCounter,
                 IoTDevice = ioTDevice,
                 Measurements = new HashSet<Measurement>()

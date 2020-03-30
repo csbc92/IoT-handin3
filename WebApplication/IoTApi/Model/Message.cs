@@ -8,7 +8,8 @@ namespace IoTApi.Model
     {
         public Guid Id { get; set; }
         public long TransmissionsCounter { get; set; }
-        public long TimeStamp { get; set; }
+        public long TimeStampSent { get; set; }
+        public long TimeStampReceived { get; set; }
         
         
         public virtual IoTDevice IoTDevice { get; set; }
@@ -20,7 +21,8 @@ namespace IoTApi.Model
 
             sb.Append("Guid: ").AppendLine(Id.ToString());
             sb.Append("Transmissions Counter: ").AppendLine(TransmissionsCounter.ToString());
-            sb.Append("TimeStamp: ").AppendLine(TimeStamp.ToString());
+            sb.Append("TimeStampSent: ").AppendLine(TimeStampSent.ToString());
+            sb.Append("TimeStampReceived: ").AppendLine(TimeStampReceived.ToString());
 
             return sb.ToString();
         }
