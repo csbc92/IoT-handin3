@@ -48,7 +48,7 @@ while True:
     temperature = blue_pin() # Read temperature sensor value
 
     body = json.dumps({
-        u"iotdeviceid": u"MyIoTDevice2",
+        u"iotdeviceid": u"IoT-chcla15",
         u"timestamp": time.time() * 1000, # Time in miliseconds. The time() method requires that the device is synced with an NTP (time) server in the boot.py file.
         u"transmissionscounter": transmission_counter,
         u"measurements": [
@@ -66,9 +66,13 @@ while True:
     transmission_counter = transmission_counter + 1 # Increase the counter
     time.sleep(1) # Time to sleep in seconds
 
-    r = requests.post(api_endpoint, data=body,
-                      headers={"Content-Type": "application/json",
-                               "User-Agent": "My User Agent 1.0"}) # User agent must be set, or you get a response: 406.0 - ModSecurity Action from ASP CORE
+    try:
+        r = requests.post(api_endpoint, data=body,
+                          headers={"Content-Type": "application/json",
+                                   "User-Agent": "My User Agent 1.0"}) # User agent must be set, or you get a response: 406.0 - ModSecurity Action from ASP CORE
 
-    print(r.status_code)
-    print(r.text)
+        print(r.status_code)
+        print(r.text)
+    except:
+        # Ignore and continue
+        print("Error when sending POST")

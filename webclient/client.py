@@ -29,11 +29,14 @@ while True:
     transmission_counter = transmission_counter + 1 # Increase the counter
     time.sleep(1) # Time to sleep in seconds
 
-    r = requests.post(api_endpoint, data=body, verify=False, # Ignore self-signed certificate warnings
+    try:
+        r = requests.post(api_endpoint, data=body, verify=False, # Ignore self-signed certificate warnings
                       headers={"Content-Type": "application/json",
                                "User-Agent": "My User Agent 1.0"}) # User agent must be set, or you get a response: 406.0 - ModSecurity Action from ASP CORE
-
-    print(r.status_code)
-    print(r.text)
+        print(r.status_code)
+        print(r.text)
+    except:
+        # Ignore and continue
+        print("Error when sending POST")
 
 
