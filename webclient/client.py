@@ -11,7 +11,7 @@ transmission_counter = 0 # The first message is message 0
 
 while True:
     body = json.dumps({
-        u"iotdeviceid": u"MyIoTDevice",
+        u"iotdeviceid": u"LaptopClient1",
         u"timestamp": int(time.time_ns() * math.pow(10, -6)),
         u"transmissionscounter": transmission_counter,
         u"measurements": [
