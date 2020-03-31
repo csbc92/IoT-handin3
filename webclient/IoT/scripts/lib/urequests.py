@@ -102,6 +102,7 @@ def request(method, url, data=None, json=None, headers={}, stream=None):
     resp = Response(s)
     resp.status_code = status
     resp.reason = reason
+    s.close() # Important to close the socket. This is a scarce resource which is limited to max 8.
     return resp
 
 
