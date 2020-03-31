@@ -7,15 +7,12 @@ import machine
 import os
 from network import WLAN
 
-#
-# Setup the time of the device
-#
-rtc = RTC()
-rtc.ntp_sync("pool.ntp.org") # Sync with time server
+print("Booting")
 
 #
 # Init wifi
 #
+print("Initializing WiFi")
 SSID = ''
 KEY = ''
 
@@ -32,7 +29,15 @@ for net in nets:
         break
 
 
+#
+# Setup the time of the device
+#
+print("Initializing NTP time server")
+rtc = RTC()
+rtc.ntp_sync("pool.ntp.org") # Sync with time server
+
 uart = UART(0, baudrate=115200)
 os.dupterm(uart)
 
+print("Start executing main.py")
 machine.main('main.py')

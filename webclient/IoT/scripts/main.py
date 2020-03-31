@@ -17,6 +17,7 @@ uart.init(115200, bits=8, parity=None, stop=1) # init with given parameters:  Ba
 #
 # Light sensor initialization
 #
+print("Initializing Light sensor")
 integration_time = LTR329ALS01.ALS_INT_50 # Integration time of the light sensor.
 measurement_rate = LTR329ALS01.ALS_RATE_50 # A lower rate means higher sampling rate i.e. ALS_50 is quick, ALS_2000 is slow.
                                             # MUST be equal or larger than integration time
@@ -28,6 +29,7 @@ lightsensor = LTR329ALS01(integration=integration_time, rate=measurement_rate, g
 #
 # Temperature sensor initialization
 #
+print("Initializing Temperature sensor")
 adc = ADC() # Analog to Digital converter used to read the temperature from the thermistor
 blue_pin = adc.channel(pin='P16', attn=2) # Data pin (V_out pin on Thermistor), attn is the attenuation level
                                             # If attn=0, then the reading of the pin will be too high. attn=3 will lower the reading to the expected output from the thermistor.
@@ -41,6 +43,7 @@ p_red.value(1) # Set the pin to HIGH i.e. output a current to the Thermistor
 api_endpoint = 'http://iot.christianclausen.dk/iot/upload' # Production
 transmission_counter = 0 # Message counter that gets incremented for each message that has potentially been emitted
 
+print("Running main loop")
 while True:
     lux = lightsensor.light()  # light() provides a tuple of lux values. The light sensor is a dual light sensor, hence two values.
     luxC1 = lux[0]
@@ -72,15 +75,16 @@ while True:
     transmission_counter = transmission_counter + 1 # Increase the counter
 
     try:
+        print("Sending POST")
         r = requests.post(api_endpoint, data=body,
                           headers={"Content-Type": "application/json",
                                    "User-Agent": "My User Agent 1.0"}) # User agent must be set, or you get a response: 406.0 - ModSecurity Action from ASP CORE
 
         print(r.status_code)
-        print(r.text)
-    except:
+    except Exception as e:
         # Ignore and continue
         print("Error when sending POST")
+        print(e)
 
     time.sleep(1)  # Time to sleep in seconds
 
