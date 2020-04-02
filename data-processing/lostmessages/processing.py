@@ -23,12 +23,14 @@ expectedTransmissionCounter = 0  # The expected message transmission counter
 lostMessagesCounter = 0          # Amount of messages that was lost
 lostMessagesTimeIntervals = []   # List of intervals when messages was lost
 previousMessage = ()             # The message that was last processed
+receivedMessageCounter = 0       # Number of received messages
 
 #
 # Process lost messages
 #
 for (TransmissionsCounter, TimeStampSent, TimeStampReceived) in cursor:
     actualTransmissionsCounter = TransmissionsCounter
+    receivedMessageCounter += 1
 
     if expectedTransmissionCounter == actualTransmissionsCounter:  # We agree that we received the expected message
         expectedTransmissionCounter += 1
@@ -55,9 +57,11 @@ def print_lost_messages(lost_messages_time_intervals):
         print("{} messages was lost between {} and {}".format(lostMessageTimeInterval[2], dt_start, dt_end))
 
 print("##### Statistics #####")
-print("Number of processed messages: {}".format(expectedTransmissionCounter))
+expectedMessages = expectedTransmissionCounter+1  # Add one, since we start counting from zero
+print("Number of received messages: {}".format(receivedMessageCounter))
+print("Number of expected messages: {}".format(expectedMessages))
 print("Number of lost messages: {}".format(lostMessagesCounter))
-print("Lost messages / Total messages ratio: {}".format(lostMessagesCounter/expectedTransmissionCounter))
+print("Lost messages / expected messages ratio: {}".format(lostMessagesCounter/expectedMessages))
 
 print("##### Lost messages tuples #####")
 print(lostMessagesTimeIntervals)
