@@ -41,5 +41,5 @@ plt.ylabel("Message Count")
 plt.xlabel("Day")
 plt.title("Messages Received / Day")
 plt.xticks(rotation=45)
-plt.savefig("MessageCount.svg", bbox_inches = "tight") # 'tight' makes room for x-axis labels
+plt.savefig("MessageCountDays.svg", bbox_inches = "tight") # 'tight' makes room for x-axis labels
 plt.show()  # Must be called last since this clears the figure, resulting in a white svg.

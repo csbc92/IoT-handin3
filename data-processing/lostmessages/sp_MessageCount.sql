@@ -21,7 +21,7 @@ BEGIN
           SELECT @currentDay AS DayStart,
 				 @dayend AS DayEnd,
 				 COUNT(*) AS MessageCount FROM Messages
-		  WHERE TimeStampSent > @currentDay
+		  WHERE TimeStampSent >= @currentDay
           AND TimeStampSent < @dayend;
 
           SET @currentDay = @dayend;
