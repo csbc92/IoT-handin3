@@ -23,6 +23,7 @@ namespace IoTApi.Controllers
         public IoTController(IoTContext context)
         {
             _context = context;
+            _context.Database.SetCommandTimeout(180);
 
             InitializeEFContext();
         }
@@ -73,9 +74,9 @@ namespace IoTApi.Controllers
                 }
                 else
                 {
-                    ctx.Entry(entity).State = EntityState.Modified;
-                    ctx.Entry(entity).Collection(iotDevice => iotDevice.Messages).Load();
-                    entity.Messages.UnionWith(ioTDevice.Messages);
+                    ctx.Entry(entity).Collection("Messages").IsModified = true;
+                    ctx.Entry(entity).Collection("Messages").Load();
+                    entity.Messages.Add(ioTDevice.Messages.First());
                 }
 
                 try
@@ -84,14 +85,12 @@ namespace IoTApi.Controllers
                 }
                 catch (DbUpdateException e)
                 {
-                    throw e;
-                    return Problem("Could not update the DB", statusCode: 500);
+                    return Problem("Could not update the DB. " + e.Message + e.StackTrace, statusCode: 500);
 
                 }
                 catch (Exception e)
                 {
-                    throw e;
-                    return Problem("Unspecified error while saving the given data", statusCode: 500);
+                    return Problem("Unspecified error while saving the given data. " + e.Message + e.StackTrace, statusCode: 500);
                 }
             }
             
