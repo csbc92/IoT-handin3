@@ -3,7 +3,7 @@ from datetime import datetime
 from configparser import ConfigParser # Used for reading config file
 
 config = ConfigParser()
-config.read('config.conf')
+config.read('../config.conf')
 
 user        = config.get('database', 'user')
 password    = config.get('database', 'password')
