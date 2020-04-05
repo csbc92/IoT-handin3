@@ -74,9 +74,20 @@ namespace IoTApi.Controllers
                 }
                 else
                 {
-                    ctx.Entry(entity).Collection("Messages").IsModified = true;
+                    // Initialize a new set on the already attached entity.
+                    // This is required since we do NOT want to load all messages from the database.
+                    // EF figures out automatically that the entity is modified and makes an INSERT of the message.
+                    entity.Messages = new HashSet<Message>
+                    {
+                        ioTDevice.Messages.First()
+                    };
+
+                    // DO NOT DO LIKE THIS. THIS WILL CAUSE THE ENTITY FRAMEWORK TO LOAD ALL MESSAGE RECORDS.
+                    // IN TIME, AS THE AMOUNT OF RECORDS GROWS, THIS CALL WILL BE EXTREMELY SLOW.
+                    /*ctx.Entry(entity).Collection("Messages").IsModified = true;
                     ctx.Entry(entity).Collection("Messages").Load();
                     entity.Messages.Add(ioTDevice.Messages.First());
+                    */
                 }
 
                 try
