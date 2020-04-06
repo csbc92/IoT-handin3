@@ -3,6 +3,13 @@ Number of processed messages: 20763
 Avg delay: 4154.024533667518
 Std delay: 614.4937829379609
 Median delay: 4065.0
+50th percentile: 4065.0
+90th percentile: 4746.0
+95th percentile: 5027.700000000001
+96th percentile: 5188.16
+97th percentile: 5426.0
+98th percentile: 6490.239999999994
+99th percentile: 6969.540000000001
 Min delay: 3000
 Max delay: 9939
 Outliers: 14
