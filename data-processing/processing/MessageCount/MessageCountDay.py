@@ -24,13 +24,16 @@ cursor.callproc(query, (1585605600000, 7)) # Call the stored procedure on the My
 counts = []
 #bins = ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Monday"] # Must match with the Number of days set in the stored procedure
 bins = []
+daycounter = 1
 
 for result in cursor.stored_results(): # The stored_results yield only one result in this case which represents the whole table returned from the stored procedure
     for (DayStart, DayEnd, MessageCount) in result.fetchall(): # Process each row
         print(str(DayStart) + ", " + str(DayEnd) + ", " + str(MessageCount))
         counts.append(MessageCount)
         dt_start = datetime.fromtimestamp(DayStart/1000)  # fromtimestamp() can only handle seconds and not milliseconds.
-        bins.append(str(dt_start))
+        #bins.append(str(dt_start))  # Use date as bin
+        bins.append(daycounter)  # Use day count as bin
+        daycounter += 1
 
 cursor.close()
 cnx.close()

@@ -43,7 +43,7 @@ axes = plt.gca() # Get current axes
 axes.set_ylim([0,2500])
 plt.ylabel("Message Count")
 plt.xlabel("Hour")
-plt.title("Messages Received / Hour")
+plt.title("Day " + str(day+1) + " - Messages Received / Hour")
 plt.xticks(rotation=45)
 plt.savefig("Plots/MessageCountDayHour_" + str(day) + ".svg", bbox_inches = "tight") # 'tight' makes room for x-axis labels
 plt.show()  # Must be called last since this clears the figure, resulting in a white svg.

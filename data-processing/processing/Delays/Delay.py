@@ -66,7 +66,7 @@ print(outliers)
 plt.figure(figsize=[6, 6])
 plt.ylabel("Message Count")
 plt.xlabel("Delay [ms]")
-plt.title("Message delay, day " + str(day+1)) # Start counting from day 1
+plt.title("Day " + str(day+1) + " - Message delay")
 plt.xticks(rotation=45)
 axes = plt.gca() # Get current axes
 axes.set_ylim([0,7200])
