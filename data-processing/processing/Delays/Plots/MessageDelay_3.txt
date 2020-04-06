@@ -1,0 +1,9 @@
+##### Statistics #####
+Number of processed messages: 20763
+Avg delay: 4154.024533667518
+Std delay: 614.4937829379609
+Median delay: 4065.0
+Min delay: 3000
+Max delay: 9939
+Outliers: 14
+[13076, 10503, 13355, 12215, 12749, 23395, 13090, 22857, 24257, 13176, 10721, 12872, 13164, 12990]

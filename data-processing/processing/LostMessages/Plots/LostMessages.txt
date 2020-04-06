@@ -1,0 +1,12 @@
+Number of received messages: 173230
+Number of expected messages: 176440
+Number of lost messages: 3214
+Lost messages / expected messages ratio: 0.0182158240761732
+##### Lost messages tuples #####
+[(1585622029000, 1585622075000, 17), (1585896786000, 1585896809000, 19), (1585916647000, 1585916670000, 21), (1586020072000, 1586030923000, 3029), (1586128691000, 1586128923000, 3214)]
+##### Pretty print lost messages #####
+17 messages was lost between 2020-03-31 04:33:49 and 2020-03-31 04:34:35
+19 messages was lost between 2020-04-03 08:53:06 and 2020-04-03 08:53:29
+21 messages was lost between 2020-04-03 14:24:07 and 2020-04-03 14:24:30
+3029 messages was lost between 2020-04-04 19:07:52 and 2020-04-04 22:08:43
+3214 messages was lost between 2020-04-06 01:18:11 and 2020-04-06 01:22:03
