@@ -19,7 +19,7 @@ cnx = mysql.connector.connect(user=user, password=password,
 cursor = cnx.cursor()
 
 days = [1585605600000, 1585692000000, 1585778400000, 1585864800000, 1585951200000, 1586037600000, 1586124000000]
-day = 6
+day = 0
 query = ("SELECT TransmissionsCounter, TimeStampReceived FROM Messages "
          "WHERE TimeStampReceived > %s AND TimeStampReceived < %s ORDER BY TransmissionsCounter")
 cursor.execute(query, (days[day], days[day+1]))
@@ -63,11 +63,14 @@ print("Max delay: {}".format(numpy.max(messagesDelays)))
 print("Outliers: {}".format(str(len(outliers))))
 print(outliers)
 
-plt.hist(messagesDelays, bins=50)
 plt.figure(figsize=[6, 6])
 plt.ylabel("Message Count")
 plt.xlabel("Delay [ms]")
-plt.title("Message delay")
+plt.title("Message delay, day " + str(day+1)) # Start counting from day 1
 plt.xticks(rotation=45)
+axes = plt.gca() # Get current axes
+axes.set_ylim([0,7200])
+axes.set_xlim([0,10000])
+plt.hist(messagesDelays, bins=50)
 plt.savefig("Plots/MessageDelay_" + str(day) + ".svg", bbox_inches = "tight") # 'tight' makes room for x-axis labels
 plt.show()  # Must be called last since this clears the figure, resulting in a white svg.
